@@ -1,0 +1,18 @@
+variable a = 5;
+variable b = “hola mundo”;
+
+mientras a>=1 hacer {
+    si (a == 3){ 
+        b = “abcdfg”;
+}
+    sino {
+        b = b + “ - “ + a;
+}
+a--;
+}
+
+variable c = b.toString();
+
+a = (5+6/(25*4)-1)+1;
+
+console.log(c);
