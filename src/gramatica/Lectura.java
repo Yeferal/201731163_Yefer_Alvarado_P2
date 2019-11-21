@@ -16,6 +16,7 @@ import java.io.IOException;
 public class Lectura {
     
     private String texto;
+    Analizador analisis = null;
     
     public void leer(String fichero) throws IOException{
 
@@ -36,6 +37,8 @@ public class Lectura {
     }
     
     public String getTexto(){
+        analisis = new Analizador(texto);
+        
         return texto;
     }
     
