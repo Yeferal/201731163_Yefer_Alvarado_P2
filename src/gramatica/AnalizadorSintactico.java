@@ -18,6 +18,8 @@ public class AnalizadorSintactico {
     private String estados [] = {"E","C","V","D","T","L","PARAMETRO","NUM" ,"DIGITO","OPERADOR"};
     private String vectorTonkens[] = null;
     private ArrayList<String> arreglo= new ArrayList<>();
+    private int fila =0;
+    private Ventana ventana;
     
     private boolean cambioOperador = false;
     private int cambioAgrupador = 0;
@@ -55,6 +57,7 @@ public class AnalizadorSintactico {
     }
     
     public boolean analizadorLexico(Ventana ventana) {
+        this.ventana = ventana;
         asignarValoresTablaTrancision();
         ingresarPalabras(ventana.areaTexto.getText());
         return false;
@@ -65,6 +68,7 @@ public class AnalizadorSintactico {
         listaPalabras = text.split("\n");
         for (int i = 0; i < listaPalabras.length; i++) {
             System.out.println("Fila #" + i + " - " + listaPalabras[i]);
+            fila++;
             analizar(listaPalabras[i]);
         }
     }    
@@ -118,6 +122,7 @@ public class AnalizadorSintactico {
                     if (error && (flotante)){
                         System.out.println("Error Col:");
                     } else if (estadoActual != 6) {
+                        
                         System.out.println("Analizado -> " + comprobarToken(salida, estadoActual));
                         salida = "";
                     }
@@ -228,41 +233,47 @@ public class AnalizadorSintactico {
         for (int i = 0; i < AGRUPACION.length; i++) {
             if (Character.toString(AGRUPACION[i]).equalsIgnoreCase(text)) {
                 arreglo.add(text);
+                ventana.areaErrores.setText(ventana.areaErrores.getText()+"\n"+" Agrupador: " + text);
                 return " Agrupacion -> " + text;
             } 
         }
         for (int i = 0; i < OPERADOR.length; i++) {
             if (Character.toString(OPERADOR[i]).equalsIgnoreCase(text)) {
                 arreglo.add(text);
-                arreglo.add(text);
+                ventana.areaErrores.setText(ventana.areaErrores.getText()+"\n"+" Operador: " + text);
                 return " Operador -> " + text;
             } 
         }
         for (int i = 0; i < SIGNO.length; i++) {
             if (Character.toString(SIGNO[i]).equalsIgnoreCase(text)) {
                 arreglo.add(text);
+                ventana.areaErrores.setText(ventana.areaErrores.getText()+"\n"+" Signo: " + text);
                 return " Signo -> " + text;
             }
         }
         for (int i = 0; i < PALABRA_RESERVADA.length; i++) {
             if (PALABRA_RESERVADA[i].equalsIgnoreCase(text)) {
                 arreglo.add(text);
+                ventana.areaErrores.setText(ventana.areaErrores.getText()+"\n"+" Palabra Reservada: " + text);
                 return " Palabra Reservada -> " + text;
             }
         }
         for (int i = 0; i < BOOLEAN.length; i++) {
             if (BOOLEAN[i].equalsIgnoreCase(text)) {
                 arreglo.add(text);
+                ventana.areaErrores.setText(ventana.areaErrores.getText()+"\n"+" Booleano: " + text);
                 return " Boolean -> " + text;
             }
         }
         
         if (estado != 0) {
             arreglo.add(text);
+            ventana.areaErrores.setText(ventana.areaErrores.getText()+"\n"+" Identifficador: " + text);
             return " Palabra -> " + text + " ";
             
         }
         arreglo.add(text);
+        ventana.areaErrores.setText(ventana.areaErrores.getText()+"\n"+" Error Lexico: " + text);
         return " Error";
     }
     

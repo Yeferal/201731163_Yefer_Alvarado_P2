@@ -39,6 +39,9 @@ public class Analizador {
         insertarSimbolo(texto);
         tokens++;
     }
+    public void solicitar(){
+        
+    }
     
    
     //verifica si la pila de simbolos esta vacia
