@@ -11,14 +11,15 @@ import javax.swing.JFileChooser;
 public class Ventana extends javax.swing.JFrame {
 
     private Lectura leectura = new Lectura();
+    Analizador analisis = null;
     
     public Ventana() {
         initComponents();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
-        botonAnalizar.setVisible(false);
+        botonAnalizar.setVisible(true);
         botonSolicitar.setVisible(false);
-        
+        //botonAnalizar.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -51,7 +52,7 @@ public class Ventana extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tabla);
 
         panel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(712, 29, -1, 491));
-        panel1.add(areaErrores, new org.netbeans.lib.awtextra.AbsoluteConstraints(712, 561, 453, 199));
+        panel1.add(areaErrores, new org.netbeans.lib.awtextra.AbsoluteConstraints(712, 530, 453, 230));
 
         labelTexto.setText("Texto");
         panel1.add(labelTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 560, -1, -1));
@@ -88,7 +89,10 @@ public class Ventana extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -110,33 +114,37 @@ public class Ventana extends javax.swing.JFrame {
         }
         areaTexto.setText(leectura.getTexto());
         
-        botonAnalizar.setVisible(true);
-        botonSolicitar.setVisible(true);
+        //botonAnalizar.setEnabled(true);
+        //botonSolicitar.setVisible(false);
         
         
     }//GEN-LAST:event_botonLeerMouseClicked
 
     private void botonAnalizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAnalizarMouseClicked
         // TODO add your handling code here:
-        botonSolicitar.setVisible(false);
+        botonSolicitar.setVisible(true);
+        String textoArea [] = areaTexto.getText().split(" ");
+        analisis = new Analizador(areaTexto.getText(),this);
+//        analisis.insertarCadena(textoArea);
+        botonAnalizar.setEnabled(false);
     }//GEN-LAST:event_botonAnalizarMouseClicked
 
     private void botonSolicitarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonSolicitarMouseClicked
         // TODO add your handling code here:
-        botonAnalizar.setVisible(false);
+        analisis.verificarCabezaPilaSimbolos();
         
     }//GEN-LAST:event_botonSolicitarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.TextArea areaErrores;
-    private java.awt.TextArea areaTexto;
+    public java.awt.TextArea areaErrores;
+    public java.awt.TextArea areaTexto;
     private javax.swing.JButton botonAnalizar;
     private javax.swing.JButton botonLeer;
     private javax.swing.JButton botonSolicitar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelTexto;
     private javax.swing.JPanel panel1;
-    private javax.swing.JTable tabla;
+    public javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }

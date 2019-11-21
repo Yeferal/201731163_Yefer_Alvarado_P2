@@ -29,7 +29,6 @@ public class Lectura {
                     texto += cadena+"\n";
 
                 }             
-              System.out.println(texto);
             br.close();     
         }catch(Exception e){
             
@@ -37,7 +36,6 @@ public class Lectura {
     }
     
     public String getTexto(){
-        analisis = new Analizador(texto);
         
         return texto;
     }

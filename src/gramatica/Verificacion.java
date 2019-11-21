@@ -65,5 +65,80 @@ public class Verificacion {
         return false;
     }
     
+    public int regresarPosicionColumna(String palabra){
+        switch(palabra){
+            case "funcion":
+                return 1;
+            case "for":
+                return 2;
+            case "V":
+                return 3;
+            case "imprimir":
+                return 5;
+            case "while":
+                return 7;
+            case "if":
+                return 6;
+            case "variable":
+                return 2;
+            case "entero":
+                return 7;
+            case "decimal":
+                return 8;
+            case "booleano":
+                return 9;
+            case "caracter":
+                return 10;
+            case "false":
+                return 12;
+            case ".":
+                return 13;
+            case "true":
+                return 14;
+            case "NUM":
+                return 15;
+            case "ID":
+                return 0;
+            case "e":
+                return 3;
+            case "D":
+                return 7;
+            case "DIGITO":
+                return 15;
+                default:
+                    return 0;
+        }
+        
+    }
+        
+        public int regresarposicionFila(String estado){
+            
+            switch(estado){
+                case "E":
+                    return 1;
+                case "C":
+                    return 2;
+                case "V":
+                    return 3;
+                case "D":
+                    return 4;
+                case "T":
+                    return 5;
+                case "L":
+                    return 6;
+                case "PARAMENTRO":
+                    return 7;
+                case "NUM":
+                    return 8;
+                case "DIGITO":
+                    return 9;
+                case "OPERADOR":
+                    return 10;
+                    default:
+                        return 0;
+            }
+        }
+        
+    
     
 }
