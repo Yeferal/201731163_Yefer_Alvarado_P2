@@ -25,7 +25,7 @@ public class Ventana extends javax.swing.JFrame {
         //botonAnalizar.setEnabled(false);
         tablaRutasPaquete();
     }
-    
+    //ingresa el nombre de las comlumnas
     private void tablaRutasPaquete() throws SQLException{
         modelo1 = new DefaultTableModel(){
             @Override
@@ -45,6 +45,7 @@ public class Ventana extends javax.swing.JFrame {
         tabla.setModel(modelo1);
         
     }
+    //agrega una fila a la tabla
     public void ingresarFila(String fila,String columna,String palabraReservada,String operador, String agrupador,String signo,String identificador,String numero, String booleano){
         String datos[]= new String[9];
         
@@ -73,7 +74,7 @@ public class Ventana extends javax.swing.JFrame {
         botonLeer = new javax.swing.JButton();
         botonAnalizar = new javax.swing.JButton();
         botonSolicitar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        botonSinta = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         areaTokens = new javax.swing.JTextArea();
 
@@ -122,18 +123,18 @@ public class Ventana extends javax.swing.JFrame {
         });
         panel1.add(botonSolicitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(255, 659, -1, -1));
 
-        jButton1.setText("Sintaxis");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        botonSinta.setText("Sintaxis");
+        botonSinta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                botonSintaMouseClicked(evt);
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botonSinta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botonSintaActionPerformed(evt);
             }
         });
-        panel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, -1, -1));
+        panel1.add(botonSinta, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, -1, -1));
 
         areaTokens.setColumns(20);
         areaTokens.setRows(5);
@@ -199,14 +200,17 @@ public class Ventana extends javax.swing.JFrame {
         
     }//GEN-LAST:event_botonSolicitarMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void botonSintaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSintaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_botonSintaActionPerformed
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void botonSintaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonSintaMouseClicked
         
         
-    }//GEN-LAST:event_jButton1MouseClicked
+        
+        
+        
+    }//GEN-LAST:event_botonSintaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -215,8 +219,8 @@ public class Ventana extends javax.swing.JFrame {
     public javax.swing.JTextArea areaTokens;
     private javax.swing.JButton botonAnalizar;
     private javax.swing.JButton botonLeer;
+    private javax.swing.JButton botonSinta;
     private javax.swing.JButton botonSolicitar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelTexto;

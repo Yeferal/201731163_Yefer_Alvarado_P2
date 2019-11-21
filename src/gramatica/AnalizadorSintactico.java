@@ -90,7 +90,6 @@ public class AnalizadorSintactico {
                 columna = j;
                 estadoAnterior = estadoActual;
                 estadoActual = comprobarEstados(analizadoEntrada.charAt(j), estadoActual);
-//                System.out.println("Estado Ant = " + estadoAnterior + " Estado nue = " + estadoActual);
                 if (estadoActual != estadoAnterior) {//Comprueba si hubo un cambio
                     if ((estadoActual == 6 || estadoActual == 7) && estadoAnterior == 5) {
                         cambioEstado = true;
@@ -108,17 +107,10 @@ public class AnalizadorSintactico {
                         cambioEstado = true;
                         flotante = true;
                     }
-//                    error = true;
                 }       
-//                if (cambioOperador) {
-//                        cambioEstado = true;
-//                    }
-                
                 if (cambioAgrupador == 3) {
                     cambioEstado = true;
                 }
-                
-//                salida += analizadoEntrada.charAt(j);
                 
                 if (cambioEstado) {
                     if (error && (flotante)){
