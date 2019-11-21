@@ -3,9 +3,11 @@ package gramatica;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.table.DefaultTableModel;
 
 
 public class Ventana extends javax.swing.JFrame {
@@ -13,14 +15,49 @@ public class Ventana extends javax.swing.JFrame {
     private Lectura leectura = new Lectura();
     Analizador analisis = null;
     AnalizadorSintactico sintactico = new AnalizadorSintactico();
-    
-    public Ventana() {
+    private DefaultTableModel modelo1 = null;
+    public Ventana() throws SQLException {
         initComponents();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
         botonAnalizar.setVisible(true);
         botonSolicitar.setVisible(false);
         //botonAnalizar.setEnabled(false);
+        tablaRutasPaquete();
+    }
+    
+    private void tablaRutasPaquete() throws SQLException{
+        modelo1 = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }  
+        };
+        modelo1.addColumn("Fila");
+        modelo1.addColumn("Columan");
+        modelo1.addColumn("Palabra reservada");
+        modelo1.addColumn("Operador");
+        modelo1.addColumn("Agrupdar");
+        modelo1.addColumn("Signo");
+        modelo1.addColumn("Identificador");
+        modelo1.addColumn("Numero");
+        modelo1.addColumn("Booleano");
+        tabla.setModel(modelo1);
+        
+    }
+    public void ingresarFila(String fila,String columna,String palabraReservada,String operador, String agrupador,String signo,String identificador,String numero, String booleano){
+        String datos[]= new String[9];
+        
+        datos[0]=fila;
+        datos[1]=columna;
+        datos[2]=palabraReservada;
+        datos[3]=operador;
+        datos[4]=agrupador;
+        datos[5]=signo;
+        datos[6]=identificador;
+        datos[7]=numero;
+        datos[8]=booleano;
+        modelo1.addRow(datos);;
     }
 
     @SuppressWarnings("unchecked")
@@ -55,7 +92,7 @@ public class Ventana extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tabla);
 
-        panel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 20, -1, 260));
+        panel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 20, 910, 260));
         panel1.add(areaErrores, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 300, 453, 450));
 
         labelTexto.setText("Texto");
@@ -102,7 +139,7 @@ public class Ventana extends javax.swing.JFrame {
         areaTokens.setRows(5);
         jScrollPane2.setViewportView(areaTokens);
 
-        panel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 20, 420, 730));
+        panel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 300, 420, 450));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -156,8 +193,9 @@ public class Ventana extends javax.swing.JFrame {
     private void botonSolicitarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonSolicitarMouseClicked
         // TODO add your handling code here:
         //analisis.verificarCabezaPilaSimbolos();
+        areaTokens.setText("");
         
-        
+        sintactico.getVectorCadena();
         
     }//GEN-LAST:event_botonSolicitarMouseClicked
 
@@ -174,7 +212,7 @@ public class Ventana extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public java.awt.TextArea areaErrores;
     public java.awt.TextArea areaTexto;
-    private javax.swing.JTextArea areaTokens;
+    public javax.swing.JTextArea areaTokens;
     private javax.swing.JButton botonAnalizar;
     private javax.swing.JButton botonLeer;
     private javax.swing.JButton botonSolicitar;

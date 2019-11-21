@@ -20,7 +20,7 @@ public class AnalizadorSintactico {
     private ArrayList<String> arreglo= new ArrayList<>();
     private int fila =0;
     private Ventana ventana;
-    
+    private int columna=0;
     private boolean cambioOperador = false;
     private int cambioAgrupador = 0;
     
@@ -48,9 +48,11 @@ public class AnalizadorSintactico {
    
     
     public String [] getVectorCadena(){
+        System.out.println("tamanio: "+arreglo.size());
+        
         for (int i = 0; i < arreglo.size(); i++) {
-            vectorTonkens[i]=arreglo.get(i);
-            System.out.println(arreglo.get(i));
+            //vectorTonkens[i]=arreglo.get(i);
+            ventana.areaTokens.setText(ventana.areaTokens.getText()+"\n"+" TOKEN: " + arreglo.get(i));
         }
         
         return vectorTonkens;
@@ -85,7 +87,7 @@ public class AnalizadorSintactico {
             analizadoEntrada = palabras[i];//Palabra para analizar
             analizadoEntrada = analizadoEntrada.trim();//Elimina los espacios
             for (int j = 0; j < analizadoEntrada.length(); j++) {
-                
+                columna = j;
                 estadoAnterior = estadoActual;
                 estadoActual = comprobarEstados(analizadoEntrada.charAt(j), estadoActual);
 //                System.out.println("Estado Ant = " + estadoAnterior + " Estado nue = " + estadoActual);
@@ -228,12 +230,15 @@ public class AnalizadorSintactico {
         }
         if (numero == text.length() && bandera == true) {
             arreglo.add(text);
+            ventana.areaErrores.setText(ventana.areaErrores.getText()+"\n"+" Numero: " + text);
+            ventana.ingresarFila(fila+"",columna+"", "", "", "", "", "",text,"");
             return " Número -> " + text;
         }
         for (int i = 0; i < AGRUPACION.length; i++) {
             if (Character.toString(AGRUPACION[i]).equalsIgnoreCase(text)) {
                 arreglo.add(text);
                 ventana.areaErrores.setText(ventana.areaErrores.getText()+"\n"+" Agrupador: " + text);
+                ventana.ingresarFila(fila+"",columna+"", "", "", text, "", "","","");
                 return " Agrupacion -> " + text;
             } 
         }
@@ -241,6 +246,7 @@ public class AnalizadorSintactico {
             if (Character.toString(OPERADOR[i]).equalsIgnoreCase(text)) {
                 arreglo.add(text);
                 ventana.areaErrores.setText(ventana.areaErrores.getText()+"\n"+" Operador: " + text);
+                ventana.ingresarFila(fila+"",columna+"", "", text, "", "", "","","");
                 return " Operador -> " + text;
             } 
         }
@@ -248,6 +254,7 @@ public class AnalizadorSintactico {
             if (Character.toString(SIGNO[i]).equalsIgnoreCase(text)) {
                 arreglo.add(text);
                 ventana.areaErrores.setText(ventana.areaErrores.getText()+"\n"+" Signo: " + text);
+                ventana.ingresarFila(fila+"",columna+"", "", "", "", text, "","","");
                 return " Signo -> " + text;
             }
         }
@@ -255,6 +262,7 @@ public class AnalizadorSintactico {
             if (PALABRA_RESERVADA[i].equalsIgnoreCase(text)) {
                 arreglo.add(text);
                 ventana.areaErrores.setText(ventana.areaErrores.getText()+"\n"+" Palabra Reservada: " + text);
+                ventana.ingresarFila(fila+"",columna+"", text, "", "", "", "","","");
                 return " Palabra Reservada -> " + text;
             }
         }
@@ -262,6 +270,7 @@ public class AnalizadorSintactico {
             if (BOOLEAN[i].equalsIgnoreCase(text)) {
                 arreglo.add(text);
                 ventana.areaErrores.setText(ventana.areaErrores.getText()+"\n"+" Booleano: " + text);
+                ventana.ingresarFila(fila+"",columna+"", "", "", "", "", "","",text);
                 return " Boolean -> " + text;
             }
         }
@@ -269,11 +278,13 @@ public class AnalizadorSintactico {
         if (estado != 0) {
             arreglo.add(text);
             ventana.areaErrores.setText(ventana.areaErrores.getText()+"\n"+" Identifficador: " + text);
+            ventana.ingresarFila(fila+"",columna+"", "", "", "", "", text,"","");
             return " Palabra -> " + text + " ";
             
         }
         arreglo.add(text);
         ventana.areaErrores.setText(ventana.areaErrores.getText()+"\n"+" Error Lexico: " + text);
+        ventana.ingresarFila(fila+"",columna+"", "e", "r", "r", "o", "r","-->",text);
         return " Error";
     }
     

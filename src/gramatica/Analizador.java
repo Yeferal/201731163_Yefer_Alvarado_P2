@@ -12,7 +12,7 @@ public class Analizador {
     private Verificacion verificador = new Verificacion();
     private int tokens;
     private String matriz [][] = {{null       ,"1"                      ,"2"                                       ,"3"              ,"4"            ,"5"            ,"6"            ,"7" ,"8"      ,"9"      ,"10"      ,"11"    ,"12"   ,"13"       ,"14"  ,"15"                      ,"16","17","18"},
-                                  {"E"        ,"funcion principal ( PARAMETRO ) { C }"       ,"funcion ID ( PARAMETRO ) { C }"          ,null             ,null           ,null           ,null           ,null,null     ,null     ,null      ,null    ,null   ,null       ,null  ,null                      ,null,null,null},
+                                  {"E"        ,"funcion principal { C }","funcion D ID ( PARAMETRO ) { C }"        ,null             ,null           ,null           ,null           ,null,null     ,null     ,null      ,null    ,null   ,null       ,null  ,null                      ,null,null,null},
                                   {"C"        ,null                     ,"for ( V = NUM ; ID < NUM ; ID++ ) { C } ","V ;"            ,"V = T L ;"    ,"imprimir ( );","while( ){ C }","if ( ) { C }",null     ,null      ,null    ,null   ,null       ,null  ,null                      ,null,null,null},
                                   {"V"        ,null                     ,null                                      ,"variable D ID"  ,null           ,null           ,null           ,null,null     ,null     ,null      ,null    ,null   ,null       ,null  ,null                      ,null,null,null},
                                   {"D"        ,null                     ,null                                      ,null             ,null           ,null           ,null           ,null,"entero" ,"decimal","caracter","cadena",null   ,null       ,null  ,null                      ,null,null,null},
@@ -28,7 +28,7 @@ public class Analizador {
     private String [] palabrasReservadas = {};
     
     
-    public Analizador(String cadena, Ventana v){
+    public Analizador(Ventana v){
         this.cadena = cadena;
         this.v = v;
         sintactico.analizadorLexico(v);
@@ -158,7 +158,6 @@ public class Analizador {
     }
     //verifica si si la pila de simbolos es un estado o no
     public void verificarCabezaPilaSimbolos(){
-        System.out.println("pilaCadena: "+verUltimoPilaCadena()+"      pilaFila: "+verUltimoPila());
         if(verificador.isEstado(verUltimoPila())){
             System.out.println("Columna : "+verificador.regresarPosicionColumna(verUltimoPilaCadena())+"      fila: "+verificador.regresarposicionFila(verUltimoPila()));
             System.out.println("pilaCadena: "+verUltimoPilaCadena()+"      pilaFila: "+verUltimoPila());
@@ -177,6 +176,8 @@ public class Analizador {
         }
         
     }
+    
+    
     
     
 }
